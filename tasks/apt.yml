@@ -1,5 +1,11 @@
 ---
 
+- name: APT | Configure cloud init to preserve source list 
+  copy:
+    'content="apt_preserve_sources_list: true"
+    dest="/etc/cloud/cloud.cfg.d/91_apt_preserve"'
+  when: apt_cloud_init_preserve_apt_list
+
 - name: APT | Ensure the "standard" sources list /etc/apt/sources.list is updated
   copy:
     src: sources_{{ ansible_distribution_release }}.list
@@ -34,6 +40,8 @@
 - name: APT | Remove packages that are left over dependencies (no longer needed)
   shell: apt-get -y autoremove
   when: apt_autoremove
+  environment: 
+    DEBIAN_FRONTEND: "noninteractive"
   register: apt_autoremove_var
   changed_when: "'Removing' in apt_autoremove_var.stdout"
   ignore_errors: yes
@@ -41,6 +49,8 @@
 - name: APT | Clear local repository of retrieved package files
   shell: apt-get -y autoclean
   when: apt_autoclean
+  environment: 
+    DEBIAN_FRONTEND: "noninteractive"
   register: apt_autoclean_var
   changed_when: "'Del' in apt_autoclean_var.stdout"
   ignore_errors: yes
