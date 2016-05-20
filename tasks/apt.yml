@@ -2,8 +2,8 @@
 
 - name: APT | Configure cloud init to preserve source list 
   copy:
-    'content="apt_preserve_sources_list: true"
-    dest="/etc/cloud/cloud.cfg.d/91_apt_preserve"'
+    content="apt_preserve_sources_list: true"
+    dest="/etc/cloud/cloud.cfg.d/91_apt_preserve"
   when: apt_cloud_init_preserve_apt_list
 
 - name: APT | Ensure the "standard" sources list /etc/apt/sources.list is updated
