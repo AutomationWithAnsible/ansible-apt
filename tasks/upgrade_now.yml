@@ -17,7 +17,9 @@
   when: not first_boot_stat.stat.exists or upgrade_now_force
 
 - name: upgrade_now | Reboot now
-  command: shutdown -r now
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
   when: require_reboot is defined and require_reboot.stat.exists
 
 - name: upgrade_now | Check and set if ansible_ssh_host is set
