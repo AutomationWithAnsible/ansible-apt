@@ -37,6 +37,7 @@ unattended_download_limit   : false  # Set to Integer representing kb/sec limit 
 
 ## *********** Update your system***********
 upgrade_now                     : False  # Enable upgrade now feature
+upgrade_now_skip_reboot         : False  # Skip reboot step
 upgrade_now_force               : False  # Force upgrade and reboot if needed all checks will be ignored
 upgrade_now_ssh_port            : 22
 upgrade_now_pause_after_reboot  : 10 # Sleep time after machine reboots
