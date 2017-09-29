@@ -40,7 +40,7 @@
 - name: APT | Remove packages that are left over dependencies (no longer needed)
   shell: apt-get -y autoremove
   when: apt_autoremove
-  environment: 
+  environment:
     DEBIAN_FRONTEND: "noninteractive"
   register: apt_autoremove_var
   changed_when: "'Removing' in apt_autoremove_var.stdout"
@@ -49,7 +49,7 @@
 - name: APT | Clear local repository of retrieved package files
   shell: apt-get -y autoclean
   when: apt_autoclean
-  environment: 
+  environment:
     DEBIAN_FRONTEND: "noninteractive"
   register: apt_autoclean_var
   changed_when: "'Del' in apt_autoclean_var.stdout"

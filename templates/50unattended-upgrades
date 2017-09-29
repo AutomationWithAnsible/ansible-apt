@@ -58,5 +58,5 @@ Unattended-Upgrade::Automatic-Reboot "{{unattended_automatic_reboot}}";
 
 // Use apt bandwidth limit feature, this example limits the download
 {% if unattended_download_limit != false%}
-Acquire::http::Dl-Limit "{{unattended_download_limit}} "; 
+Acquire::http::Dl-Limit "{{unattended_download_limit}} ";
 {% endif %}
