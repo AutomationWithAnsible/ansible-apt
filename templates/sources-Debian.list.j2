@@ -7,8 +7,17 @@ deb-src {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_relea
 
 # # Major bug fix updates produced after the final release of the
 # # distribution.
+
+# Security
 deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
 deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
+
+# Updates
 deb {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }}-updates main contrib non-free
 deb-src {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }}-updates main contrib non-free
 
+{% if apt_debian_backports| bool %}
+# backports
+deb {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }}-backports main contrib non-free
+deb-src {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }}-backports main contrib non-free
+{% endif %}
