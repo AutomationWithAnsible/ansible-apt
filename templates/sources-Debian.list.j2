@@ -1,0 +1,14 @@
+# {{ ansible_managed | comment }}
+
+# See http://www.debian.org/releases/stable/i386/release-notes/ch-upgrading.html
+# for how to upgrade to newer versions of the distribution.
+deb {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }} main contrib non-free
+deb-src {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }} main contrib non-free
+
+# # Major bug fix updates produced after the final release of the
+# # distribution.
+deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
+deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
+deb {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }}-updates main contrib non-free
+deb-src {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }}-updates main contrib non-free
+

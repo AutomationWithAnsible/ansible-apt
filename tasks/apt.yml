@@ -18,7 +18,7 @@
 
 - name: APT | Ensure the "mirror" sources list in /etc/apt/sources.list is updated
   template:
-    src:  sources.list.j2
+    src:  sources-{{ ansible_distribution_release }}.list.j2
     dest: /etc/apt/sources.list
     owner: root
     group: root
