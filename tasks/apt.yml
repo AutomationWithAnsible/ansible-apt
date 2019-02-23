@@ -29,7 +29,7 @@
 - name: APT | Update the apt cache (source update)
   apt:
     update_cache: yes
-  when: apt_source_list_updated is defined and  apt_source_list_updated | changed
+  when: apt_source_list_updated is defined and apt_source_list_updated is changed
 
 - name: APT | Update the apt cache (valid cache valid timeout)
   apt:
@@ -80,7 +80,7 @@
 - name: APT | Update the apt cache (if new repo is added)
   apt:
     update_cache: yes
-  when: repo_add | changed
+  when: repo_add is changed
 
 - name: APT | Make sure the default packages are installed
   apt:

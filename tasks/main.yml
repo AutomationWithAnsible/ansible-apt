@@ -1,5 +1,4 @@
 ---
-
 - include: apt.yml
 
 - include: unattended.yml
