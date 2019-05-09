@@ -1,10 +1,20 @@
 // Automatically upgrade packages from these (origin:archive) pairs
+
+{# as ubuntu is still didn't migrate to "Allowed-Origins", lets use both, depending of the distro #}
+{% if ansible_distribution == "Debian" %}
+Unattended-Upgrade::Origins-Pattern {
+{% if unattended_origins.updates != true %} // {% endif %}       "o=Debian,a=stable-updates";
+{% if unattended_origins.proposed != true %} // {% endif %}      "o=Debian,a=proposed-updates";
+{% if unattended_origins.backports != true %} // {% endif %}     "o=Debian,a=${distro_codename}-backports";
+{% if unattended_origins.security != true %} // {% endif %}      "origin=Debian,codename=${distro_codename},label=Debian-Security";
+{% else %}
 Unattended-Upgrade::Allowed-Origins {
 unattended_origins
 {% if unattended_origins.security != true %} // {% endif %} "${distro_id}:${distro_codename}-security";
 {% if unattended_origins.updates != true %} // {% endif %} "${distro_id}:${distro_codename}-updates";
 {% if unattended_origins.proposed != true %} // {% endif %} "${distro_id}:${distro_codename}-proposed";
 {% if unattended_origins.backports != true %} // {% endif %} "${distro_id}:${distro_codename}-backports";
+{% endif %}
 };
 
 // List of packages to not update
@@ -55,8 +65,21 @@ Unattended-Upgrade::Remove-Unused-Dependencies "{{unattended_remove_unused}}";
 // the file /var/run/reboot-required is found after the upgrade
 Unattended-Upgrade::Automatic-Reboot "{{unattended_automatic_reboot}}";
 
+// Automatically reboot even if there are users currently logged in.
+//Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
+
+// If automatic reboot is enabled and needed, reboot at the specific
+// time instead of immediately
+//  Default: "now"
+//Unattended-Upgrade::Automatic-Reboot-Time "02:00";
 
 // Use apt bandwidth limit feature, this example limits the download
 {% if unattended_download_limit != false%}
-Acquire::http::Dl-Limit "{{unattended_download_limit}} "; 
+Acquire::http::Dl-Limit "{{unattended_download_limit}} ";
 {% endif %}
+
+// Enable logging to syslog. Default is False
+// Unattended-Upgrade::SyslogEnable "false";
+
+// Specify syslog facility. Default is daemon
+// Unattended-Upgrade::SyslogFacility "daemon";

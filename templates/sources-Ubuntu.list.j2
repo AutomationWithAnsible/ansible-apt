@@ -1,21 +1,21 @@
-# {{ansible_managed}}
+# {{ ansible_managed | comment }}
 # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
 # newer versions of the distribution.
-deb {{apt_update_source_list_mirror}} {{ ansible_distribution_release }} main restricted
-deb-src {{apt_update_source_list_mirror}} {{ ansible_distribution_release }} main restricted
+deb {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }} main restricted
+deb-src {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }} main restricted
 
 ## Major bug fix updates produced after the final release of the
 ## distribution.
-deb {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-updates main restricted
-deb-src {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-updates main restricted
+deb {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }}-updates main restricted
+deb-src {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }}-updates main restricted
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team. Also, please note that software in universe WILL NOT receive any
 ## review or updates from the Ubuntu security team.
-deb {{apt_update_source_list_mirror}} {{ ansible_distribution_release }} universe
-deb-src {{apt_update_source_list_mirror}} {{ ansible_distribution_release }} universe
-deb {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-updates universe
-deb-src {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-updates universe
+deb {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }} universe
+deb-src {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }} universe
+deb {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }}-updates universe
+deb-src {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }}-updates universe
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team, and may not be under a free licence. Please satisfy yourself as to
@@ -23,18 +23,18 @@ deb-src {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-upd
 ## multiverse WILL NOT receive any review or updates from the Ubuntu
 ## security team.
 
-deb {{apt_update_source_list_mirror}} {{ ansible_distribution_release }} multiverse
-deb-src {{apt_update_source_list_mirror}} {{ ansible_distribution_release }} multiverse
-deb {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-updates multiverse
-deb-src {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-updates multiverse
+deb {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }} multiverse
+deb-src {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }} multiverse
+deb {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }}-updates multiverse
+deb-src {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }}-updates multiverse
 
 ## N.B. software from this repository may not have been tested as
 ## extensively as that contained in the main release, although it includes
 ## newer versions of some applications which may provide useful features.
 ## Also, please note that software in backports WILL NOT receive any review
 ## or updates from the Ubuntu security team.
-deb {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-backports main restricted universe multiverse
-deb-src {{apt_update_source_list_mirror}} {{ ansible_distribution_release }}-backports main restricted universe multiverse
+deb {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }}-backports main restricted universe multiverse
+deb-src {{ apt_update_source_list_mirror.ubuntu }} {{ ansible_distribution_release }}-backports main restricted universe multiverse
 
 deb http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security main restricted
 deb-src http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security main restricted
