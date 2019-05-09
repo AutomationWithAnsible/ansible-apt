@@ -13,8 +13,10 @@ deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main 
 deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
 
 # Updates
+{% if "archive.debian.org" not in apt_update_source_list_mirror.debian %}{# archive.debian for obsolete ansible_distribution_release do not have updates available #}
 deb {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }}-updates main contrib non-free
 deb-src {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_release }}-updates main contrib non-free
+{% endif %}
 
 {% if apt_debian_backports| bool %}
 # backports
