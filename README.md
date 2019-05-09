@@ -12,7 +12,7 @@ Ansible apt role which manages apt on a ubuntu 12.04 systems, it has two functio
 
 ##Prerequisite
 * If you are using mail notification you must have configured mailx
-
+* Requires ansible 2.4 for apt: autoclean and 2.1 for apt: autoremove
 
 ##Variables
   All the default variables are located **defaults/main.yml**. Mostly they are al sane but
