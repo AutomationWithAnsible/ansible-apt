@@ -1,3 +1,4 @@
+{%- set security_suffix = '-security' if debian_stable_version == ansible_distribution_major_version else '/updates' %}
 # {{ ansible_managed | comment }}
 
 # See http://www.debian.org/releases/stable/i386/release-notes/ch-upgrading.html
@@ -9,8 +10,8 @@ deb-src {{ apt_update_source_list_mirror.debian }} {{ ansible_distribution_relea
 # # distribution.
 
 # Security
-deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
-deb-src http://security.debian.org/ {{ ansible_distribution_release }}/updates main contrib non-free
+deb http://security.debian.org/ {{ ansible_distribution_release }}{{security_suffix }} main contrib non-free
+deb-src http://security.debian.org/ {{ ansible_distribution_release }}{{security_suffix}} main contrib non-free
 
 # Updates
 {% if "archive.debian.org" not in apt_update_source_list_mirror.debian %}{# archive.debian for obsolete ansible_distribution_release do not have updates available #}

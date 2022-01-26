@@ -1,4 +1,15 @@
 ---
+- name: APT | Register current stable version
+  uri:
+    url: http://ftp.debian.org/debian/dists/stable/Release
+    timeout: 5
+    return_content: yes
+  register: dist_result
+  check_mode: no
+
+- set_fact:
+    debian_stable_version: "{{ dist_result.content | regex_search('Version:\\s*(\\d+)', '\\1') | first }}"
+    check_mode: no
 
 - name: APT | Configure cloud init to preserve source list
   copy:
