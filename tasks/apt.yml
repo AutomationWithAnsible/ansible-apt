@@ -1,4 +1,15 @@
 ---
+- name: APT | Register current stable version
+  uri:
+    url: http://ftp.debian.org/debian/dists/stable/Release
+    timeout: 5
+    return_content: yes
+  register: dist_result
+  check_mode: no
+
+- set_fact:
+    debian_stable_version: "{{ dist_result.content | regex_search('Version:\\s*(\\d+)', '\\1') | first }}"
+    check_mode: no
 
 - name: APT | Configure cloud init to preserve source list
   copy:
@@ -18,7 +29,7 @@
 
 - name: APT | Ensure the "mirror" sources list in /etc/apt/sources.list is updated
   template:
-    src:  sources.list.j2
+    src:  sources-{{ ansible_distribution }}.list.j2
     dest: /etc/apt/sources.list
     owner: root
     group: root
@@ -38,18 +49,20 @@
   ignore_errors: true
 
 - name: APT | Remove packages that are left over dependencies (no longer needed)
-  shell: apt-get -y autoremove
+  apt:
+    autoremove: yes
   when: apt_autoremove
-  environment: 
+  environment:
     DEBIAN_FRONTEND: "noninteractive"
   register: apt_autoremove_var
   changed_when: "'Removing' in apt_autoremove_var.stdout"
   ignore_errors: yes
 
 - name: APT | Clear local repository of retrieved package files
-  shell: apt-get -y autoclean
+  apt:
+    autoclean: yes
   when: apt_autoclean
-  environment: 
+  environment:
     DEBIAN_FRONTEND: "noninteractive"
   register: apt_autoclean_var
   changed_when: "'Del' in apt_autoclean_var.stdout"

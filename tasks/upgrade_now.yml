@@ -14,7 +14,7 @@
   stat:
     path="{{ upgrade_now_apt_reboot_file }}"
   register: require_reboot
-  when: not upgrade_now_skip_reboot and (not first_boot_stat.stat.exists or upgrade_now_force) 
+  when: not upgrade_now_skip_reboot and (not first_boot_stat.stat.exists or upgrade_now_force)
 
 - name: upgrade_now | Reboot now
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
